@@ -1,0 +1,11 @@
+1,1,0,main.u
+2,2,0,main.v
+3,3,0,main.u_bit_0
+4,4,0,main.u_bit_1
+5,-1,0,main.u_bit_2
+6,5,0,main.v_bit_0
+7,6,0,main.v_bit_1
+8,-1,0,main.v_bit_2
+9,7,0,main.c_bit_0
+10,-1,0,main.c_bit_1
+11,-1,0,main.c_bit_2
