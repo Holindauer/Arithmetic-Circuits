@@ -42,35 +42,39 @@ template GTE() {
     c_bit_2 === 1;
 }
 
-// // Arithmetic circuit for checking if a list is sorted by comparing successive elements with GTE
-// template isSorted() {
+// Arithmetic circuit for checking if a list is sorted by comparing successive elements with GTE
+template isSorted() {
 
-//     // Define inputs for integer values and their binary representations
-//     signal input list[4]; // Array of integers
-//     signal input list_bits[4][3]; // Corresponding binary bits for each integer
+    // Define inputs for integer values and their binary representations
+    signal input list[4]; // Array of integers
+    signal input list_bits[4][3]; // Corresponding binary bits for each integer
+    signal input c_bits[4][3];
 
-//     signal output sorted;
+    signal output sorted;
 
-//     component gte_comparisons[3];
+    component gte_comparisons[4];
 
-//     for (var i = 0; i < 3; i++) {
-//         gte_comparisons[i] = GTE();
+    for (var i = 0; i < 3; i++) {
+        gte_comparisons[i] = GTE();
 
-//         // Connecting integer values to GTE
-//         gte_comparisons[i].u <== list[i + 1];
-//         gte_comparisons[i].v <== list[i];
+        // Connecting integer values to GTE
+        gte_comparisons[i].u <== list[i + 1];
+        gte_comparisons[i].v <== list[i];
 
-//         // Connecting binary representations of integer values to GTE
-//         gte_comparisons[i].u_bit_0 <== list_bits[i + 1][0];
-//         gte_comparisons[i].u_bit_1 <== list_bits[i + 1][1];
-//         gte_comparisons[i].u_bit_2 <== list_bits[i + 1][2];
-//         gte_comparisons[i].v_bit_0 <== list_bits[i][0];
-//         gte_comparisons[i].v_bit_1 <== list_bits[i][1];
-//         gte_comparisons[i].v_bit_2 <== list_bits[i][2];
-//     }
+        // Connecting binary representations of integer values to GTE
+        gte_comparisons[i].u_bit_0 <== list_bits[i + 1][0];
+        gte_comparisons[i].u_bit_1 <== list_bits[i + 1][1];
+        gte_comparisons[i].u_bit_2 <== list_bits[i + 1][2];
 
-//     // All comparisons must be true for the list to be sorted
-//     sorted <== gte_comparisons[0].ge * gte_comparisons[1].ge * gte_comparisons[2].ge;
-// }
+        gte_comparisons[i].v_bit_0 <== list_bits[i][0];
+        gte_comparisons[i].v_bit_1 <== list_bits[i][1];
+        gte_comparisons[i].v_bit_2 <== list_bits[i][2];
 
-component main = GTE();
+        // Connecting binary representations of 2^(n-1) + (u-v) to GTE
+        gte_comparisons[i].c_bit_0 <== c_bits[i][0];
+        gte_comparisons[i].c_bit_1 <== c_bits[i][1];
+        gte_comparisons[i].c_bit_2 <== c_bits[i][2];
+    }
+}
+
+component main = isSorted();
